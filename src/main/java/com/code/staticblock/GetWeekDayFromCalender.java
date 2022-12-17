@@ -5,6 +5,7 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.text.DateFormatSymbols;
 import java.util.Calendar;
 
 public class GetWeekDayFromCalender {
@@ -20,14 +21,17 @@ public class GetWeekDayFromCalender {
 //   *  3. INTEGER year
 //   */
   public static String findDay(int month, int day, int year) {
+    String[] DAY_NAMES = new String[] {"non-zero", "SUNDAY", "MONDAY",
+        "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY" };
+   // String [] DAY_NAMES = new DateFormatSymbols().getWeekdays();
     Calendar cal = Calendar.getInstance();
-    cal.set(year,month-1, day);
-    return DAY_NAMES[cal.get(cal.DAY_OF_WEEK) -1];
+    cal.set(year,month-1, day, 0, 0);
+    return DAY_NAMES[cal.get(cal.DAY_OF_WEEK)];
   }
 
   public static void main(String[] args) throws IOException {
     BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-  //  BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
+    //BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
 
     String[] firstMultipleInput = bufferedReader.readLine().replaceAll("\\s+$", "").split(" ");
 
@@ -39,12 +43,12 @@ public class GetWeekDayFromCalender {
 
     String res = GetWeekDayFromCalender.findDay(month, day, year);
 
- //   bufferedWriter.write(res);
-  //  bufferedWriter.newLine();
+  //  bufferedWriter.write(res);
+   // bufferedWriter.newLine();
     System.out.println(res);
 
     bufferedReader.close();
-   // bufferedWriter.close();
+  //    bufferedWriter.close();
   }
 
 }
